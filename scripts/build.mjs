@@ -1,0 +1,11 @@
+import { cp, mkdir, rm, readFile, writeFile } from 'node:fs/promises';
+await rm('dist', { recursive: true, force: true });
+await mkdir('dist');
+await cp('public', 'dist', { recursive: true });
+await cp('src', 'dist/src', { recursive: true });
+let html = await readFile('index.html', 'utf8');
+const url = process.env.SITE_URL || process.env.CF_PAGES_URL || 'https://alofuq-booking-demo.pages.dev';
+if (!/^https:\/\/[a-z\d.-]+(?::\d+)?\/?$/i.test(url)) throw new Error('SITE_URL must be an HTTPS origin');
+html = html.replaceAll('__SITE_URL__', url.replace(/\/$/, ''));
+await writeFile('dist/index.html', html);
+console.log('Production build ready: dist/ (zero runtime dependencies)');
