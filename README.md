@@ -24,7 +24,7 @@ npm run preview
 - Build output directory: `dist`
 - Root directory: جذر المستودع (اتركه فارغاً).
 - متغير `NODE_VERSION`: `22`.
-- متغير `SITE_URL`: رابط النشر النهائي الكامل، مثلاً `https://alofuq-booking-demo.pages.dev`، بدون مسار إضافي. عند غيابه يستخدم البناء `CF_PAGES_URL` ثم رابط المشروع الافتراضي.
+- متغير `SITE_URL`: رابط النشر النهائي الكامل، مثلاً `https://alofuq-booking-demo.pages.dev`، يمكن أن يتضمن مسار مشروع GitHub Pages. عند غيابه يستخدم البناء `CF_PAGES_URL` ثم رابط المشروع الافتراضي.
 - صفحة واحدة بلا Router؛ لا توجد مسارات فرعية تحتاج redirects. روابط الخطوات تستخدم anchors.
 - بعد النشر تأكد من معاينة صورة المشاركة. تغيير الدومين يتطلب تحديث `SITE_URL` وإعادة البناء.
 
@@ -57,3 +57,8 @@ Manifest وأيقونات جاهزة كأساس PWA. لا Service Worker حال�
 ## الاختبارات
 
 `npm test` يفحص أرقام العراق والتحقق من المعلومات ورفض البيانات المعدلة وتميز أرقام الحجز وعدم استخدام الشبكة. الاختبار التفاعلي `tests/browser-check.mjs` يحتاج Playwright مثبتاً وChromium: شغّل preview ثم `node tests/browser-check.mjs`. يغطي الرجوع، الخيارات، validation، النجاح، الضغط المكرر، عدم تسريب البيانات، الأخطاء والأصول ومقاسات الهاتف وسطح المكتب. اللقطات والتقرير في `.test-artifacts/`، ولا تُرفع إلى Git.
+
+
+## معاينة GitHub Pages
+
+يدعم المشروع النشر من جذر فرع `main` عبر Settings → Pages → Deploy from a branch → main → / (root). تعمل روابط CSS وJavaScript والصور النسبية تحت `/alofuq-booking-demo/` وكذلك على جذر Cloudflare. الموارد موجودة في `public/` في المصدر ومخرجات البناء معاً. عند استخدام بناء GitHub Pages اضبط `SITE_URL=https://storeqn.github.io/alofuq-booking-demo` لضبط بيانات مشاركة الرابط أيضاً. لا تستخدم مجلد `public` وحده كمجلد نشر؛ نقطة الدخول `index.html` في جذر المشروع.
